@@ -1,0 +1,11 @@
+CREATE TABLE `license_cpu_core_usage` (
+  `Usage Meter Instance ID` char(40) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL COMMENT 'This is UUID of VMware Usage Meter Instance',
+  `Product` varchar(100) DEFAULT NULL,
+  `SKU` varchar(100) DEFAULT NULL,
+  `Usage Hour` datetime NOT NULL,
+  `License Key` varchar(100) DEFAULT NULL,
+  `Serial Number` varchar(100) DEFAULT NULL,
+  `Allocation Id` varchar(100) DEFAULT NULL,
+  `Quantity` int DEFAULT NULL,
+  `Unit of Measurement` varchar(100) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
