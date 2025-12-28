@@ -1,10 +1,17 @@
-# vcf-license-reporting
+# VMware Cloud Foundation - Usage Meter - License Reporting
+
+VMware VCF Usage Meters send data to https://vcf.broadcom.com/
+This solution automatically downloads these data (Usage Metter reports) from https://vcf.broadcom.com/ and pump it into MySQL Database which is used as Grafana Datasource for data statistics visualization. 
+
+## FreeBSD and Bourne Shell
+
+The solution is developed and operated on FreeBSD leveraging standard Bourne Shell scripts merging the data and pumping them into MySQL Database.
 
 ## MYSQL SERVER
 
-The solution uses **MySQL database** as a backend data store of **VCF License Usage over time**.
+The solution uses local installed **MySQL database** as a backend data store of **VCF License Usage over time**.
 
-### MySQL Configuration
+#### MySQL Configuration
 
 You must have enable local_infile feature on MySQL Server configuration at /usr/local/etc/mysql/my.cnf
 
@@ -14,21 +21,21 @@ local_infile                    = 1
 log_error                       = /var/db/mysql/mysql.log
 ```
 
-### Database init
+#### Database init
 cat vcf_db_init.mysql | mysql -u root --password=''
 
 Note: Root password to local MySQL is by default empty.
 
-### Database Schema init
+#### Database Schema init
 export MYSQL_PWD='vcf'
 cat vcf_db_schema.mysql | mysql -u vcf vcf -h localhost
 unset MYSQL_PWD
 
-### Workflow to import data into Database
+#### Workflow to import data into Database
 ./make_vcf_usage_tsv.sh
 ./vcf_usage_import_to_db.sh
 
-### SQL Queries
+### MySQL Queries
 
 #### Count of records in database
 ```sql
