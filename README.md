@@ -7,7 +7,7 @@ This solution automatically downloads these data (Usage Metter reports) from htt
 
 The solution is developed and operated on FreeBSD leveraging standard Bourne Shell scripts merging the data and pumping them into MySQL Database.
 
-## MYSQL SERVER
+## MySQL Server
 
 The solution uses local installed **MySQL database** as a backend data store of **VCF License Usage over time**.
 
