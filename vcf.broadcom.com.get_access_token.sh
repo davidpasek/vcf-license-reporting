@@ -4,7 +4,9 @@
 #
 
 SCRIPT_DIR=$(dirname "$0")
-. "$SCRIPT_DIR/credentials.sh"
+. "$SCRIPT_DIR/vcf.broadcom.com.credentials.sh"
+
+echo "Client ID: $CLIENT_ID"
 
 TOKEN_ENDPOINT="https://login.broadcom.com/as/token.oauth2"
 SCOPE="usage_management"

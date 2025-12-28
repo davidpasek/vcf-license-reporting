@@ -1,1 +1,94 @@
 # vcf-license-reporting
+
+## MYSQL SERVER
+
+The solution uses **MySQL database** as a backend data store of **VCF License Usage over time**.
+
+### MySQL Configuration
+
+You must have enable local_infile feature on MySQL Server configuration at /usr/local/etc/mysql/my.cnf
+
+```ini
+[mysqld]
+local_infile                    = 1
+log_error                       = /var/db/mysql/mysql.log
+
+### Database init
+cat vcf_db_init.mysql | mysql -u root --password=''
+
+Note: Root password to local MySQL is by default empty.
+
+### Database Schema init
+export MYSQL_PWD='vcf'
+cat vcf_db_schema.mysql | mysql -u vcf vcf -h localhost
+unset MYSQL_PWD
+
+### Workflow to import data into Database
+./make_vcf_usage_tsv.sh
+./vcf_usage_import_to_db.sh
+
+### SQL Queries
+
+#### Count of records in database
+```sql
+SELECT count(*) 
+FROM license_cpu_core_usage;
+
+#### Count of records in database in particular date interval
+```sql
+SELECT COUNT(*)
+FROM license_cpu_core_usage
+WHERE `Usage Hour` >= '2025-12-01 00:00:00'
+  AND `Usage Hour` <  '2025-12-10 00:00:00';
+
+#### Sum of Quantity per Usage Hour
+
+```sql
+SELECT
+  `Usage Hour`,
+  SUM(`Quantity`) AS Q
+FROM license_cpu_core_usage
+GROUP BY `Usage Hour`
+ORDER BY `Usage Hour`;
+
+#### Sum of Quantity per Usage Hour - limited to date interval
+
+```sql
+SELECT
+  `Usage Hour`,
+  SUM(`Quantity`) AS Q
+FROM license_cpu_core_usage
+WHERE `Usage Hour` >= '2025-12-01 00:00:00'
+  AND `Usage Hour` <  '2025-12-10 00:00:00'
+GROUP BY `Usage Hour`
+ORDER BY `Usage Hour`;
+
+#### Duplicity of License Key within Usage Hours
+
+```sql
+SELECT
+  `License Key`,
+  `Usage Hour`,
+  COUNT(`License Key`) AS COUNT
+FROM license_cpu_core_usage
+GROUP BY `License Key`, `Usage Hour`
+HAVING COUNT(`License Key`) > 1
+ORDER BY `License Key`, `Usage Hour`;
+
+#### Wierd License Key - 00000-00000-00000-00000-00000
+
+```sql
+SELECT
+  `Usage Meter Instance ID`,
+  `License Key`,
+  `Usage Hour`,
+  SUM(`Quantity`) AS Q
+FROM license_cpu_core_usage
+WHERE `License Key`="00000-00000-00000-00000-00000"
+GROUP BY `Usage Meter Instance ID`,`Usage Hour`
+ORDER BY `Usage Hour`;
+
+#### Count of records in database with Wierd License Key - 00000-00000-00000-00000-00000
+```sql
+SELECT count(*) from license_cpu_core_usage
+WHERE `License Key`="00000-00000-00000-00000-00000";
