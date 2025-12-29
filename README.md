@@ -27,7 +27,8 @@ In file vcf_db_init.mysql are MySQL commands to create database "vcf" and user "
 cat vcf_db_init.mysql | mysql -u root --password=''
 ```
 Note 1: Root password to local MySQL is by default empty.
-Note 2: Do not change DB name, DB user, and DB password, because solution expects these hard coded information. If you change it, you have to cange it in the rest of scripts and integrations, It could be improved in the future by keeping this information in dedicated secure file.
+
+Note 2: Do not change DB name, DB user, and DB password, because solution expects these hard coded information. If you change it, you have to change it in the rest of scripts and various integrations. This constraint may be improved in the future by keeping MYSQL DB information in a dedicated secure file.
 
 #### Database Schema init
 In file "vcf_db_schema.mysql" is tested DB Structure. You can apply it into MySQL database "vcf" by following command ...
@@ -38,8 +39,10 @@ unset MYSQL_PWD
 ```
 
 #### Workflow to import usage data into Database
+```code
 ./make_vcf_usage_tsv.sh
 ./vcf_usage_import_to_db.sh
+```
 
 ### MySQL Queries
 

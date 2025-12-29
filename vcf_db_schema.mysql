@@ -10,7 +10,7 @@ CREATE TABLE `usage_meter` (
   `provider_id` bigint DEFAULT NULL,
   `usage_meter_id` char(40) NOT NULL,
   `usage_meter_name` varchar(100) DEFAULT NULL,
-  PRIMARY KEY (`usage_meter_id`),
+  PRIMARY KEY (`usage_meter_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 
