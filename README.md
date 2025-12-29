@@ -61,6 +61,24 @@ GROUP BY `Usage Hour`
 ORDER BY `Usage Hour`;
 ```
 
+#### Sum of Quantity per Usage Hour - per Usage Meters
+```sql
+SELECT
+  l.`Usage Hour` AS time,
+  CONCAT(p.provider_name, '-', u.usage_meter_name) AS instance,
+  SUM(l.`Quantity`) AS value
+FROM license_cpu_core_usage l
+JOIN usage_meter u
+  ON u.usage_meter_id = l.`Usage Meter Instance ID`
+JOIN provider p
+  ON p.provider_id = u.provider_id
+GROUP BY
+  time,
+  instance
+ORDER BY
+  time;
+```
+
 #### Sum of Quantity per Usage Hour - limited to date interval
 ```sql
 SELECT
