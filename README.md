@@ -21,6 +21,12 @@ local_infile                    = 1
 log_error                       = /var/db/mysql/mysql.log
 ```
 
+#### Database Structure
+When you want to get MySQL DB Structure, you can do it by this command ...
+```sql
+mysqldump -u root --password='' --no-data vcf > /tmp/db_structure.sql
+```
+
 #### Database init
 cat vcf_db_init.mysql | mysql -u root --password=''
 
