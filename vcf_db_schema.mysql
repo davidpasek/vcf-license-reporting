@@ -1,3 +1,20 @@
+DROP TABLE IF EXISTS `provider`;
+CREATE TABLE `provider` (
+  `provider_id` bigint NOT NULL AUTO_INCREMENT,
+  `provider_name` varchar(100) NOT NULL,
+  PRIMARY KEY (`provider_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+DROP TABLE IF EXISTS `usage_meter`;
+CREATE TABLE `usage_meter` (
+  `provider_id` bigint DEFAULT NULL,
+  `usage_meter_id` char(40) NOT NULL,
+  `usage_meter_name` varchar(100) DEFAULT NULL,
+  PRIMARY KEY (`usage_meter_id`),
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+
+DROP TABLE IF EXISTS `license_cpu_core_usage`;
 CREATE TABLE `license_cpu_core_usage` (
   `Usage Meter Instance ID` char(40) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL COMMENT 'This is UUID of VMware Usage Meter Instance',
   `Product` varchar(100) DEFAULT NULL,

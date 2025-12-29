@@ -1,0 +1,39 @@
+--
+-- THIS FILE IS JUST A SAMPLE HOW PROVIDERS AND USAGE METTERS CAN BE POPULATED FOR GRAFANA LABELS
+--
+
+--
+-- Data for table `provider`
+--
+
+INSERT INTO `provider` VALUES 
+(1,'CRA'),
+(2,'C4C');
+(3,'Asseco'),
+(4,'CNCSK'),
+(5,'LightStorm Services'),
+(6,'SWAN'),
+(7,'Slovanet'),
+(8,'Vegacom'),
+(9,'ixperta'),
+
+--
+-- Data for table `usage_meter`
+--
+
+INSERT INTO `usage_meter` VALUES 
+(1,'037cb777-69f8-4400-bef8-97102feadbc7','CRA_UM1-037CB7'),
+(1,'12ed2112-b557-4dfc-8d4d-2e0b8c36d372','CRA_UM5-Onpremise 2 APEX Gamming + Palatino-12ED21'),
+(1,'7681aabc-91c8-4136-a6b6-c37cb9a44c2a','CRA_UM4-Onpremise1-7681AA'),
+(1,'f60a25e8-474b-4a7b-a451-bf6815dcd6e3','CRA_PreProd LAB-F60A25'),
+(2,'321eac1d-862c-4fa7-b6c3-a9fa9360807a','C4C_DCSERV-UM01-321EAC'),
+(2,'4c480c5c-657b-4e76-83ee-db31c65683d9','C4C_C4C-UM01-4C480C'),
+(2,'fb7ef9a4-02f2-4f43-ada7-7ec66c60d05d','C4C_C4T-UM01-FB7EF9'),
+(3,'22d7ff38-a375-453e-9537-229ed109ddf9','WL_Asseco CE Cloud'),
+(4,'d3d0313a-7e57-46fe-930a-c1442e4aeccf','WL_CNCSK-D3D031'),
+(5,'00321bf0-8cb9-4895-8333-07c73449a184','WL_LightStorm Services'),
+(6,'d0de9221-a6c5-4136-bea3-43d45686ebe5','WL_SWAN_9-D0DE92'),
+(7,'415b5e4e-c6ac-4df6-b436-920181522a75','WL_Slovanet-4 15B5E'),
+(8,'fd9d3fe6-75c3-4115-b600-09300cb23fbf','WL_Vegacom-FD9D3F'),
+(9,'2b3e8941-29d9-4e51-b07f-25c1541ddbdd','WL_ixperta-2B3E89');
+
