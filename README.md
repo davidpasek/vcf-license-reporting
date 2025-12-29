@@ -28,8 +28,10 @@ mysqldump -u root --password='' --no-data vcf > /tmp/db_structure.sql
 ```
 
 #### Database init
+File vcf_db_init.mysql includes tested DB Structure. You can apply it into MySQL by following command ...
+```code
 cat vcf_db_init.mysql | mysql -u root --password=''
-
+```
 Note: Root password to local MySQL is by default empty.
 
 #### Database Schema init
