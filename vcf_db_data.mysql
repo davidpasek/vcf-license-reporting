@@ -8,14 +8,14 @@
 
 INSERT INTO `provider` VALUES 
 (1,'CRA'),
-(2,'C4C');
+(2,'C4C'),
 (3,'Asseco'),
 (4,'CNCSK'),
 (5,'LightStorm Services'),
 (6,'SWAN'),
 (7,'Slovanet'),
 (8,'Vegacom'),
-(9,'ixperta'),
+(9,'ixperta');
 
 --
 -- Data for table `usage_meter`
