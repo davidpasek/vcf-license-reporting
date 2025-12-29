@@ -37,7 +37,7 @@ cat vcf_db_schema.mysql | mysql -u vcf vcf -h localhost
 unset MYSQL_PWD
 ```
 
-#### Workflow to import data into Database
+#### Workflow to import usage data into Database
 ./make_vcf_usage_tsv.sh
 ./vcf_usage_import_to_db.sh
 
