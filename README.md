@@ -3,13 +3,15 @@
 VMware VCF Usage Meters send data to https://vcf.broadcom.com/
 This solution automatically downloads these data (Usage Metter reports) from https://vcf.broadcom.com/ and pump it into MySQL Database which is used as Grafana Datasource for data statistics visualization. 
 
-## FreeBSD and Bourne Shell
+## FreeBSD + Bourne Shell scripts
 
 The solution is developed and operated on FreeBSD leveraging standard Bourne Shell scripts merging the data and pumping them into MySQL Database.
 
 ## MySQL Server
 
 The solution uses local installed **MySQL database** as a backend data store of **VCF License Usage over time**.
+
+### MySQL Config and Init
 
 #### MySQL Configuration
 
@@ -45,6 +47,8 @@ unset MYSQL_PWD
 ```
 
 ### MySQL Queries
+
+This section contains few useful MySQL queries.
 
 #### Count of records in database
 ```sql
@@ -147,3 +151,37 @@ ORDER BY `Usage Hour`;
 ```sql
 SELECT count(*) from license_cpu_core_usage
 WHERE `License Key`="00000-00000-00000-00000-00000";
+```
+
+## Grafana
+
+MySQL data can be visualized in Gafana. Grafana dashboard is available in directory *grafana*.
+
+The same dashboard is there in three Grafana dashboard formats
+- Classic
+- V1
+- V2
+
+There are three dashboards on top of MySQL Datasource as depicted in screenshot below.
+
+![Grafana dashboard](./grafana/Grafana-dashboard_blur_text.jpeg)
+
+### Grafana Dashboards on top of MySQL Datasource
+
+#### Dashboard "VCF CPU Cores"
+```text
+"title": "VCF CPU Cores"
+"rawSql": "SELECT\n  `Usage Hour`,\n  SUM(`Quantity`) AS `VCF CPU Cores`\nFROM license_cpu_core_usage\nGROUP BY `Usage Hour`\nORDER BY `Usage Hour`;"
+```
+
+#### Dashboard "VCF CPU Cores - By Provider"
+```text
+"title": "VCF CPU Cores - By Provider"
+"rawSql": "SELECT\n  l.`Usage Hour` AS time,\n  CONCAT(p.provider_name) AS instance,\n  SUM(l.`Quantity`) AS value\nFROM license_cpu_core_usage l\nJOIN usage_meter u\n  ON u.usage_meter_id = l.`Usage Meter Instance ID`\nJOIN provider p\n  ON p.provider_id = u.provider_id\nGROUP BY\n  time,\n  instance\nORDER BY\n  time;\n",
+```
+
+#### Dashboard "VCF CPU Cores - By Usage Meter"
+```text
+"title": "VCF CPU Cores - By Usage Meter",
+"rawSql": "SELECT\n  l.`Usage Hour` AS time,\n  CONCAT(p.provider_name, '-', u.usage_meter_name) AS instance,\n  SUM(l.`Quantity`) AS value\nFROM license_cpu_core_usage l\nJOIN usage_meter u\n  ON u.usage_meter_id = l.`Usage Meter Instance ID`\nJOIN provider p\n  ON p.provider_id = u.provider_id\nGROUP BY\n  time,\n  instance\nORDER BY\n  time;\n",
+```
